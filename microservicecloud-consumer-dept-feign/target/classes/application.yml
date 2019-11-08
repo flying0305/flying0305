@@ -1,0 +1,17 @@
+server: 
+  port: 803
+
+feign: 
+  hystrix: true 
+
+eureka: 
+  client: 
+    register-with-eureka: false #表示不注册自己
+           #是否从Eureka Server上获取注册信息，默认为true,如果报错
+           #com.netflix.client.ClientException: Load balancer does not have available server for client
+           #可能问题1：pom里没加eureka,feign或者的包
+           #可能问题2：在api的server上的访问微服务的名字写的不对
+           #可能问题3：这里设置错了，应该设置为true,默认就是ture
+    fetch-registry: true 
+    service-url:   
+      defaultZone: http://eureka7003:7003/eureka/,http://eureka7002:7002/eureka/,http://eureka7001:7001/eureka/  

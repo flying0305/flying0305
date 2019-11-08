@@ -1,0 +1,44 @@
+ ## 1：端口的配置
+## 2：mybatis的配置
+## 3：spring的配置
+
+#如果注册到eureka在需要配置eureka服务端的地址
+##注册到eureka的步骤 1：在pom里加坐标 2：在yml放需要注册进的eureka的地址  3：在启动类上加启动注解
+
+server: 
+  port: 8002  ##这个项目的端口
+  
+mybatis:  config-location: classpath:mybatis/mybatis.cfg.xml #mybatis的总配置文件
+  type-aliases-package: com.zff.entities    # 所有Entity實體类所在包，也就是api里的放实体的包名
+  mapper-locations:
+  - classpath:mybatis/mapper/*.xml       # mapper映射文件（到层接口方法的实现）
+ 
+spring:
+  application:    name: app
+  datasource:     type: com.alibaba.druid.pool.DruidDataSource   #对数据库的操作包，在maven里找到DataSource即可
+    driver-class-name: org.gjt.mm.mysql.Driver               # mysql驱动包
+    url: jdbc:mysql://localhost:3306/mysql1               # 数据库名称
+    username: root 
+    password: root 
+    dbcp2: 
+      min-idle: 5                                            # 数据库连接池的最小维持连接数
+      initial-size: 5                                        # 初始化连接数
+      max-total: 5                                           # 最大连接数
+      max-wait-millis: 200                                   # 等待连接获取的最大超时时间
+
+    
+eureka: 
+  client:
+   service-url:  
+    # 单机defaultZone: http://localhost:7001/eureka  #注册进7001这个eureka的服务站   
+    defaultZone: http://eureka7001:7001/eureka ,http://eureka7002:7002/eureka ,http://eureka7003:7003/eureka
+  instance:    instance-id: instance-id8002  #eureka的statu下边显示的名称
+    prefer-ip-address: true       #鼠标放到eureka的statu上时，左下角会有服务所在机器上的地址显示，以后哪个服务器上部署的出问题了，可以根据地址很快找到
+     
+info:
+  app.name: microservicecloud-provider-dept-8002
+  company.name: com.zff   
+  build.artifactId: microservicecloud-provider-dept-8002
+  build.version: 0.0.1-SNAPSHOT
+  
+        

@@ -1,0 +1,23 @@
+server: 
+  port: 9527
+  
+spring:
+  application:
+     name: myzuul-gateway
+   
+eureka: 
+  client: 
+    service-url: 
+      defaultZone: http://eureka7001:7001/eureka,http://eureka7002:7002/eureka,http://eureka7003:7003/eureka  
+  instance:
+    instance-id: myzuul #这里是去hosts文件下用这个名去代替本机地址的设置
+    prefer-ip-address: true   #鼠标在eureka页面的statu那名字上，页面的左下角会出现ip的显示
+
+#将微服务名进行映射
+zuul: 
+  #ignored-services: app #封锁在eureka里注册的真实的微服务的名字
+  ignored-services: "*" #封锁在eureka里注册的所有真实的微服务的名字
+  prefix: /zuulPrefix   #这是给路由访问时加的统一的前缀，访问时在微服务名前加这个
+  routes:  
+    mydept.serviceId: app
+    mydept.path: /zuulapp/**

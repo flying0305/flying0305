@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--这个namespace特别重要，写的是需要实现的接口的全名(包+接口名)-->
+<mapper namespace="com.zff.dao.FlowerDao">
+ 	<select id="selectFlower" resultType="Flower">
+		select id,fName,price from flower ;
+	</select>
+	<insert id="insertFlower" parameterType="Flower">
+		INSERT INTO flower(fName,price) VALUES(#{fName},#{price});
+	</insert>
+</mapper>
